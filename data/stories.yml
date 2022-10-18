@@ -1,0 +1,16 @@
+version: "3.1"
+
+stories:
+
+- story: Salutation et demande de langue
+  steps:
+  - intent: salutation
+  - action: utter_demande_langue
+
+- story: choix langue
+  steps: 
+  - action: utter_demande_langue
+  - intent: choix_langue
+  - action: demande_support_form
+  - active_loop: demande_support_form
+

@@ -1,0 +1,145 @@
+version: "3.1"
+
+rules:
+
+- rule: Fin demande support - debut demande nombre de scénario
+  condition:
+  - active_loop: demande_support_form
+  steps:
+  - action: demande_support_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_nombre_scenario_form
+  - active_loop: demande_nombre_scenario_form
+
+- rule: Fin demande nombre de scénario - debut demande solution de payement
+  condition:
+  - active_loop: demande_nombre_scenario_form
+  steps:
+  - action: demande_nombre_scenario_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_solution_payement_form
+  - active_loop: demande_solution_payement_form
+
+- rule: Fin demande solution de payement - debut demande nombre de langue
+  condition:
+  - active_loop: demande_solution_payement_form
+  steps:
+  - action: demande_solution_payement_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_internationalisation_form
+  - active_loop: demande_internationalisation_form
+
+- rule: Fin demande nombre de langue - debut demande nombre d'utilisateur
+  condition:
+  - active_loop: demande_internationalisation_form
+  steps:
+  - action: demande_internationalisation_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_nombre_utilisateur_form
+  - active_loop: demande_nombre_utilisateur_form
+
+- rule: Fin demande nombre d'utilisateur - debut demande intégration de formulaire
+  condition:
+  - active_loop: demande_nombre_utilisateur_form
+  steps:
+  - action: demande_nombre_utilisateur_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_formulaire_form
+  - active_loop: demande_formulaire_form
+
+- rule: Fin demande intégration de formulaire - debut demande secteur
+  condition:
+  - active_loop: demande_formulaire_form
+  steps:
+  - action: demande_formulaire_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_secteur_form
+  - active_loop: demande_secteur_form
+  
+- rule: Fin demande secteur - debut demande plateforme de gestion
+  condition:
+  - active_loop: demande_secteur_form
+  steps:
+  - action: demande_secteur_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_plateforme_gestion_form
+  - active_loop: demande_plateforme_gestion_form
+
+- rule: Fin demande plateforme de gestion - debut demande email
+  condition:
+  - active_loop: demande_plateforme_gestion_form
+  steps:
+  - action: demande_plateforme_gestion_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_email_form
+  - active_loop: demande_email_form
+
+- rule: Fin demande email - debut demande numéro de téléphone
+  condition:
+  - active_loop: demande_email_form
+  steps:
+  - action: demande_email_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: demande_telephone_form
+  - active_loop: demande_telephone_form
+
+- rule: Fin demande telephone - fourniture devis 
+  condition:
+  - active_loop: demande_telephone_form
+  steps:
+  - action: demande_telephone_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_devis
+  - slot_was_set:
+    - execute_action: normal
+  - action: action_send_email
+  - action: utter_autre_devis
+  - action: action_reset_slot
+  
+- rule: Demande deffectuer un autre devis
+  steps:
+  - action: action_reset_slot
+  - intent: affirmation
+  - action: demande_support_form
+  - active_loop: demande_support_form
+
+- rule: Refus deffectuer un autre devis
+  steps:
+  - action: action_reset_slot
+  - intent: negation
+  - action: action_merci
+  
+- rule: Fin demande telephone - fourniture devis Avec Erreur
+  condition:
+  - active_loop: demande_telephone_form
+  steps:
+  - action: demande_telephone_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_devis
+  - slot_was_set:
+    - execute_action: retour
+  - action: action_reset_slot 
+  - action: demande_support_form
+  - active_loop: demande_support_form

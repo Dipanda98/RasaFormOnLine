@@ -1,0 +1,453 @@
+version: "3.1"
+
+intents:
+  - choix_scenario
+  - salutation
+  - choix
+  - choix_secteur
+  - choix_support
+  - choix_langue
+  - affirmation
+  - merci
+  - negation
+  - nombre_langue
+  - nombre_utilisateur
+  - plateforme_gestion
+
+actions:
+- action_devis #Affichage du devis
+- action_reset_slot
+- action_send_email
+- action_merci
+- validate_demande_support_form
+- validate_demande_email_form
+#- action_choix_langue #Stockage de la langue
+
+entities:
+- language
+- scenario
+- solution_payement
+- formulaire
+- secteur
+- internationalisation
+- nombre_utilisateur
+- plateforme_gestion
+
+slots:
+  execute_action:
+    type: categorical
+    values:
+      - normal
+      - retour
+    influence_conversation: true
+    mappings:
+    - type: custom
+
+  total_min:
+    type: any
+    mappings:
+    - type: custom
+
+  total_max:
+    type: any
+    mappings:
+    - type: custom
+
+  plateforme_gestion:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: plateforme_gestion
+
+  internationalisation: #Stocke le nombre de langue disponible sur le chatbot
+    type: text
+    mappings:
+    - type: from_entity
+      entity: internationalisation
+
+  nombre_utilisateur: #Stocke le nombre d'utilisateur à servir par le chatbot
+    type: text
+    mappings:
+    - type: from_entity
+      entity: nombre_utilisateur
+
+  language: #Stocke la langue de l'utilisateur
+    type: text
+    mappings:
+    - type: from_entity
+      entity: language
+
+  scenario: #Stocke le nombre de scénario 
+    type: text
+    mappings:
+    - type: from_entity
+      entity: scenario
+
+  solution_payement: #Stocke la réponse de l'utilisateur par rapport au fait qu'il souhaite un payement en ligne
+    type: text
+    mappings:
+    - type: from_entity
+      entity: solution_payement
+
+  formulaire: #Stocke la réponse de l'utilisateur par rapport au fait qu'il souhaite un formulaire dans son chatbot
+    type: text
+    mappings:
+    - type: from_entity
+      entity: formulaire
+
+  secteur: #Stocke le secteur d'acticité du client
+    type: text
+    mappings:
+    - type: from_entity
+      entity: secteur
+
+  support: #Socke la liste des support de déployement
+    type: text 
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions: 
+      - active_loop: demande_support_form
+        requested_slot: support
+
+  email: #Stocke l'email du client
+    type: text 
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions: 
+      - active_loop: demande_email_form
+        requested_slot: email
+
+  telephone: #Stocke le numéro de téléphone du client
+    type: text 
+    influence_conversation: true
+    mappings:
+    - type: from_text
+      conditions: 
+      - active_loop: demande_telephone_form
+        requested_slot: telephone
+  
+forms:
+  demande_plateforme_gestion_form:
+    required_slots:
+        - plateforme_gestion
+
+  demande_nombre_utilisateur_form:
+    required_slots:
+        - nombre_utilisateur
+
+  demande_internationalisation_form:
+    required_slots:
+        - internationalisation
+
+  demande_email_form:
+    required_slots:
+        - email
+  
+  demande_telephone_form:
+    required_slots:
+        - telephone
+
+  demande_support_form:
+    required_slots:
+        - support
+
+  demande_nombre_scenario_form:
+    required_slots:
+        - scenario
+
+  demande_solution_payement_form:
+    required_slots:
+        - solution_payement
+      
+  demande_formulaire_form:
+    required_slots:
+        - formulaire
+
+  demande_secteur_form:
+    required_slots:
+        - secteur
+
+responses:
+  utter_demande_langue: 
+  - text: "Vous souhaitez que je vous parle en quelle langue 😉?\nWhat language would you like me to speak in 😉?"
+    button_type: vertical
+    buttons:
+        - title: "1. Francais"
+          payload: '/choix_langue{{"language":"fr"}}'
+        - title: "2. English"
+          payload: '/choix_langue{{"language":"en"}}'
+
+  utter_salutation:
+  - text: "Salut! Je vais vous accompagner dans le processus d'établissement du devis de votre chatbot."
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Hi! I'll walk you through the process of quoting your chatbot."
+
+  utter_ask_support:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "On which medium will your chatbot be deployed?\n\n
+  1) Whatsapp\n
+  2) Telegram\n
+  3) Messenger\n
+  4) Instagram\n
+  5) Mobile app\n
+  6) Web site\n
+  7) Other..."
+  - text: "Sur quel support sera déployé votre chatbot ?\n\n
+  1) Whatsapp\n
+  2) Telegram\n
+  3) Messenger\n
+  4) Instagram\n
+  5) Application mobile\n
+  6) Site web\n
+  7) Autres..."
+
+  utter_ask_scenario:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Do you have an idea of the number of scenarios in your chatbot?"
+    button_type: vertical
+    buttons:
+        - title: "Less than 10"
+          payload: '/choix_scenario{{"scenario":"-10"}}'
+        - title: "Between 10 and 30"
+          payload: '/choix_scenario{{"scenario":"10...30"}}'
+        - title: "Between 30 and 60"
+          payload: '/choix_scenario{{"scenario":"30...60"}}'
+        - title: "More than 60"
+          payload: /choix_scenario{{"scenario":"60+"}}'
+        - title: "I don't know"
+          payload: '/choix_scenario{{"scenario":"---"}}'
+  - text: "Avez-vous une idée du nombre de scénario dans votre chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "Moins de 10"
+          payload: '/choix_scenario{{"scenario":"-10"}}'
+        - title: "Entre 10 et 30"
+          payload: '/choix_scenario{{"scenario":"10...30"}}'
+        - title: "Entre 30 et 60"
+          payload: '/choix_scenario{{"scenario":"30...60"}}'
+        - title: "Plus de 60"
+          payload: '/choix_scenario{{"scenario":"60+"}}'
+        - title: "Je ne sais pas"
+          payload: '/choix_scenario{{"scenario":"---"}}'
+
+  utter_ask_solution_payement:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Should your chatbot integrate a payment solution?"
+    button_type: vertical
+    buttons:
+        - title: "Yes"
+          payload: '/choix{{"solution_payement":"oui"}}'
+        - title: "No"
+          payload: '/choix{{"solution_payement":"non"}}'
+  - text: "Votre chatbot doit-il intégrer une solution de payement ?"
+    button_type: vertical
+    buttons:
+        - title: "Oui"
+          payload: '/choix{{"solution_payement":"oui"}}'
+        - title: "Non"
+          payload: '/choix{{"solution_payement":"non"}}'
+
+  utter_ask_formulaire:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Would you like to integrate forms in your chatbot?"
+    button_type: vertical
+    buttons:
+        - title: "Yes"
+          payload: '/choix{{"formulaire":"oui"}}'
+        - title: "No"
+          payload: '/choix{{"formulaire":"non"}}'
+  - text: "Souhaitez-vous intégrer des formulaires dans votre chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "Oui"
+          payload: '/choix{{"formulaire":"oui"}}'
+        - title: "Non"
+          payload: '/choix{{"formulaire":"non"}}'
+
+  utter_ask_secteur:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "In which sector do you want to develop your chatbot?"
+    button_type: vertical
+    buttons:
+        - title: "Sale"
+          payload: '/choix_secteur{{"secteur":"vente"}}'
+        - title: "from_entityer service"
+          payload: '/choix_secteur{{"secteur":"service_client"}}'
+        - title: "Hotels"
+          payload: '/choix_secteur{{"secteur":"hotellerie"}}'
+        - title: "Medicine"
+          payload: '/choix_secteur{{"secteur":"medecine"}}'
+        - title: "Marketing"
+          payload: '/choix_secteur{{"secteur":"marketing"}}'
+        - title: "Other..."
+          payload: '/choix_secteur{{"secteur":"autre"}}'
+  - text: "Dans quel secteur voulez-vous développer votre chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "Vente"
+          payload: '/choix_secteur{{"secteur":"vente"}}'
+        - title: "Service client"
+          payload: '/choix_secteur{{"secteur":"service_client"}}'
+        - title: "Hôtellerie"
+          payload: '/choix_secteur{{"secteur":"hotellerie"}}'
+        - title: "Médecine"
+          payload: '/choix_secteur{{"secteur":"medecine"}}'
+        - title: "Marketing"
+          payload: '/choix_secteur{{"secteur":"marketing"}}'
+        - title: "Autres..."
+          payload: '/choix_secteur{{"secteur":"autre"}}'
+
+  utter_ask_email:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "To receive your review, please enter your email address."
+  - text: "Pour recevoir votre dévis, veuillez entrer votre adresse e-mail."
+
+  utter_ask_telephone:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Please also enter your telephone number"
+  - text: "Veuillez également saisir votre numéro de téléphone."
+
+  utter_ask_internationalisation:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "How many languages should your chatbot be available in?"
+    button_type: vertical
+    buttons:
+        - title: "1"
+          payload: '/nombre_langue{{"internationalisation":"1"}}'
+        - title: "2"
+          payload: '/nombre_langue{{"internationalisation":"2"}}'
+        - title: "3"
+          payload: '/nombre_langue{{"internationalisation":"3"}}'
+        - title: "4"
+          payload: '/nombre_langue{{"internationalisation":"4"}}'
+        - title: "5"
+          payload: '/nombre_langue{{"internationalisation":"5"}}'
+        - title: "More than 5"
+          payload: '/nombre_langue{{"internationalisation":"+5"}}'
+  - text: "Votre chatbot doit être disponible en combien de langue ?"
+    button_type: vertical
+    buttons:
+        - title: "1"
+          payload: '/nombre_langue{{"internationalisation":"1"}}'
+        - title: "2"
+          payload: '/nombre_langue{{"internationalisation":"2"}}'
+        - title: "3"
+          payload: '/nombre_langue{{"internationalisation":"3"}}'
+        - title: "4"
+          payload: '/nombre_langue{{"internationalisation":"4"}}'
+        - title: "5"
+          payload: '/nombre_langue{{"internationalisation":"5"}}'
+        - title: "Plus de 5"
+          payload: '/nombre_langue{{"internationalisation":"+5"}}'
+
+  utter_ask_nombre_utilisateur:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Approximately how many people should chat with your chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "Less than 50"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"-50"}}'
+        - title: "Between 50 and 400"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"50...400"}}'
+        - title: "Between 400 and 800"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"400...800"}}'
+        - title: "I don't know"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"---"}}'
+  - text: "Environ combien de personne devrait discuter avec votre chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "moins de 50"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"-50"}}'
+        - title: "Entre 50 et 400"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"50...400"}}'
+        - title: "Entre 400 et 800"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"400...800"}}'
+        - title: "Je ne sais pas"
+          payload: '/nombre_utilisateur{{"nombre_utilisateur":"---"}}'
+
+  utter_ask_plateforme_gestion:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Do you want a management interface for your chatbot?"
+    button_type: vertical
+    buttons:
+        - title: "Less than 50"
+          payload: '/plateforme_gestion{{"plateforme_gestion":"oui"}}'
+        - title: "Between 50 and 400"
+          payload: '/plateforme_gestion{{"plateforme_gestion":"non"}}'
+  - text: "Voulez-vous une interface de gestion de votre chatbot ?"
+    button_type: vertical
+    buttons:
+        - title: "Oui"
+          payload: '/plateforme_gestion{{"plateforme_gestion":"oui"}}'
+        - title: "Non"
+          payload: '/plateforme_gestion{{"plateforme_gestion":"non"}}'
+
+  utter_autre_devis:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Would you like to request another quote?"
+    button_type: vertical
+    buttons:
+        - title: "Yes"
+          payload: /affirmation
+        - title: "No"
+          payload: /negation
+  - text: "Voulez vous demander un autre devis ?"
+    button_type: vertical
+    buttons:
+        - title: "Oui"
+          payload: /affirmation
+        - title: "Non"
+          payload: /negation
+
+  utter_merci:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "Would you like to request another quote?"
+  - text: "Merci pour le temps que vous nous avez accordé. Nous espérons que nous avons pu vous aider.\n
+  Vous pouvez nous contacter discuter de la réalisation de votre chatbot via ce numéro: XXXXX, ou par mail à l'adresse: test@test.com\nVous pouvez aussi directement nous écrire en visitant notre page  "
+
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,45 @@
+version: "3.1"
+
+nlu:
+- intent: salutation
+  examples: |
+    - Bonjour
+    - Salut
+    - Hey
+    - Hello
+    - Hi
+    - Bonsoir
+    - Good morning
+    - Morning
+    - Good evening
+    - Evening
+    - Bon aprem
+    - Bon après midi
+    - Afternoon
+    - Good Afternoon
+    - bonjour
+    - salut
+    - hey
+    - hello
+    - hi
+    - bonsoir
+    - morning
+    - evening
+    - afternoon
+
+- intent: merci
+  examples: |
+    - Merci
+    - Thank
+    - Thank you
+    - Mrci
+    - Mci
+    - D'accord merci
+    - OK Merci
+    - Cool Merci
+    - Alright thank
+    - OK Thank
+    - Cool thank
+    - OK Thank you
+    - Cool thak you
+    - Alright thank you    

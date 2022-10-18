@@ -1,0 +1,174 @@
+2022-10-03 10:45:03,503 [DEBUG]  Available web server routes: 
+/conversations/<conversation_id:path>/messages     POST                           add_message
+/conversations/<conversation_id:path>/tracker/events POST                           append_events
+/webhooks/rasa                                     GET                            custom_webhook_RasaChatInput.health
+/webhooks/rasa/webhook                             POST                           custom_webhook_RasaChatInput.receive
+/webhooks/rest                                     GET                            custom_webhook_RestInput.health
+/webhooks/rest/webhook                             POST                           custom_webhook_RestInput.receive
+/model/test/intents                                POST                           evaluate_intents
+/model/test/stories                                POST                           evaluate_stories
+/conversations/<conversation_id:path>/execute      POST                           execute_action
+/domain                                            GET                            get_domain
+/socket.io                                         GET                            handle_request
+/                                                  GET                            hello
+/model                                             PUT                            load_model
+/model/parse                                       POST                           parse
+/conversations/<conversation_id:path>/predict      POST                           predict
+/conversations/<conversation_id:path>/tracker/events PUT                            replace_events
+/conversations/<conversation_id:path>/story        GET                            retrieve_story
+/conversations/<conversation_id:path>/tracker      GET                            retrieve_tracker
+/webhooks/socketio                                 GET                            socketio_webhook.health
+/status                                            GET                            status
+/webhooks/telegram                                 GET                            telegram_webhook.health
+/webhooks/telegram/webhook                         GET                            telegram_webhook.message
+/webhooks/telegram/set_webhook                     GET                            telegram_webhook.set_webhook
+/model/predict                                     POST                           tracker_predict
+/model/train                                       POST                           train
+/conversations/<conversation_id:path>/trigger_intent POST                           trigger_intent
+/model                                             DELETE                         unload_model
+/version                                           GET                            version
+2022-10-03 10:45:03,509 [INFO ]  Starting Rasa server on http://0.0.0.0:5005
+2022-10-03 10:45:03,512 [DEBUG]  Using the default number of Sanic workers (1).
+2022-10-03 10:45:07,846 [DEBUG]  Starting new HTTPS connection (1): api.segment.io:443
+2022-10-03 10:45:09,175 [DEBUG]  https://api.segment.io:443 "POST /v1/track HTTP/1.1" 200 21
+2022-10-03 10:45:09,613 [DEBUG]  Connected to InMemoryTrackerStore.
+2022-10-03 10:45:09,616 [DEBUG]  Connected to lock store 'InMemoryLockStore'.
+2022-10-03 10:45:09,620 [DEBUG]  Instantiated NLG to 'TemplatedNaturalLanguageGenerator'.
+2022-10-03 10:45:09,648 [INFO ]  Loading model /app/models/20221003-095514-bone-billet.tar.gz...
+2022-10-03 10:45:12,256 [DEBUG]  Extracted model to '/tmp/tmp17zfuj9_'.
+2022-10-03 10:45:12,287 [DEBUG]  Node 'nlu_message_converter' loading 'NLUMessageConverter.load' and kwargs: '{}'.
+2022-10-03 10:45:12,295 [DEBUG]  Node 'run_WhitespaceTokenizer0' loading 'WhitespaceTokenizer.load' and kwargs: '{}'.
+2022-10-03 10:45:12,312 [DEBUG]  Node 'run_RegexFeaturizer1' loading 'RegexFeaturizer.load' and kwargs: '{}'.
+2022-10-03 10:45:12,314 [DEBUG]  Resource 'train_RegexFeaturizer1' was requested for reading.
+2022-10-03 10:45:12,318 [DEBUG]  Node 'run_LexicalSyntacticFeaturizer2' loading 'LexicalSyntacticFeaturizer.load' and kwargs: '{}'.
+2022-10-03 10:45:12,320 [DEBUG]  Resource 'train_LexicalSyntacticFeaturizer2' was requested for reading.
+2022-10-03 10:45:12,341 [DEBUG]  Node 'run_CountVectorsFeaturizer3' loading 'CountVectorsFeaturizer.load' and kwargs: '{}'.
+2022-10-03 10:45:12,344 [DEBUG]  Resource 'train_CountVectorsFeaturizer3' was requested for reading.
+2022-10-03 10:45:12,352 [DEBUG]  Node 'run_CountVectorsFeaturizer4' loading 'CountVectorsFeaturizer.load' and kwargs: '{}'.
+2022-10-03 10:45:12,356 [DEBUG]  Resource 'train_CountVectorsFeaturizer4' was requested for reading.
+2022-10-03 10:45:12,367 [DEBUG]  Node 'run_DIETClassifier5' loading 'DIETClassifier.load' and kwargs: '{}'.
+2022-10-03 10:45:12,368 [DEBUG]  Resource 'train_DIETClassifier5' was requested for reading.
+2022-10-03 10:45:12,385 [DEBUG]  Loading the model from /tmp/tmpf9hvl3q8/train_DIETClassifier5/DIETClassifier.tf_model with finetune_mode=False...
+2022-10-03 10:45:12,567 [DEBUG]  You specified 'DIET' to train entities, but no entities are present in the training data. Skipping training of entities.
+2022-10-03 10:45:12,813 [DEBUG]  Following metrics will be logged during training: 
+2022-10-03 10:45:12,815 [DEBUG]    t_loss (total loss)
+2022-10-03 10:45:12,817 [DEBUG]    i_acc (intent acc)
+2022-10-03 10:45:12,819 [DEBUG]    i_loss (intent loss)
+2022-10-03 10:46:48,390 [DEBUG]  Finished loading the model.
+2022-10-03 10:46:48,396 [DEBUG]  Node 'run_EntitySynonymMapper6' loading 'EntitySynonymMapper.load' and kwargs: '{}'.
+2022-10-03 10:46:48,397 [DEBUG]  Resource 'train_EntitySynonymMapper6' was requested for reading.
+2022-10-03 10:46:48,399 [DEBUG]  Failed to load ABCMeta from model storage. Resource 'train_EntitySynonymMapper6' doesn't exist.
+2022-10-03 10:46:48,404 [DEBUG]  Node 'run_ResponseSelector7' loading 'ResponseSelector.load' and kwargs: '{}'.
+2022-10-03 10:46:48,407 [DEBUG]  Resource 'train_ResponseSelector7' was requested for reading.
+2022-10-03 10:46:48,412 [DEBUG]  Failed to load ABCMeta from model storage. Resource 'train_ResponseSelector7' doesn't exist.
+2022-10-03 10:46:48,413 [DEBUG]  Resource 'train_ResponseSelector7' was requested for reading.
+2022-10-03 10:46:48,416 [DEBUG]  Failed to load ResponseSelector from model storage. Resource 'train_ResponseSelector7' doesn't exist.
+2022-10-03 10:46:48,418 [DEBUG]  Node 'run_FallbackClassifier8' loading 'FallbackClassifier.load' and kwargs: '{}'.
+2022-10-03 10:46:48,424 [DEBUG]  Node 'run_RegexMessageHandler' loading 'RegexMessageHandler.load' and kwargs: '{}'.
+2022-10-03 10:46:48,428 [DEBUG]  Node 'domain_provider' loading 'DomainProvider.load' and kwargs: '{}'.
+2022-10-03 10:46:48,431 [DEBUG]  Resource 'domain_provider' was requested for reading.
+2022-10-03 10:46:49,635 [DEBUG]  Node 'run_MemoizationPolicy0' loading 'MemoizationPolicy.load' and kwargs: '{}'.
+2022-10-03 10:46:49,643 [DEBUG]  Resource 'train_MemoizationPolicy0' was requested for reading.
+2022-10-03 10:46:49,648 [DEBUG]  Node 'run_RulePolicy1' loading 'RulePolicy.load' and kwargs: '{}'.
+2022-10-03 10:46:49,649 [DEBUG]  Resource 'train_RulePolicy1' was requested for reading.
+2022-10-03 10:46:49,659 [DEBUG]  Node 'run_UnexpecTEDIntentPolicy2' loading 'UnexpecTEDIntentPolicy.load' and kwargs: '{}'.
+2022-10-03 10:46:49,661 [DEBUG]  Resource 'train_UnexpecTEDIntentPolicy2' was requested for reading.
+2022-10-03 10:46:49,679 [DEBUG]  Loading the model from /tmp/tmpf9hvl3q8/train_UnexpecTEDIntentPolicy2/unexpected_intent_policy.tf_model with finetune_mode=False...
+2022-10-03 10:48:55,149 [DEBUG]  Finished loading the model.
+2022-10-03 10:48:55,152 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
+2022-10-03 10:48:55,155 [DEBUG]  Node 'run_TEDPolicy3' loading 'TEDPolicy.load' and kwargs: '{}'.
+2022-10-03 10:48:55,159 [DEBUG]  Resource 'train_TEDPolicy3' was requested for reading.
+2022-10-03 10:48:55,177 [DEBUG]  Loading the model from /tmp/tmpf9hvl3q8/train_TEDPolicy3/ted_policy.tf_model with finetune_mode=False...
+2022-10-03 10:50:51,684 [DEBUG]  Finished loading the model.
+2022-10-03 10:50:51,686 [DEBUG]  Node 'rule_only_data_provider' loading 'RuleOnlyDataProvider.load' and kwargs: '{}'.
+2022-10-03 10:50:51,690 [DEBUG]  Resource 'train_RulePolicy1' was requested for reading.
+2022-10-03 10:50:51,693 [DEBUG]  Node 'select_prediction' loading 'DefaultPolicyPredictionEnsemble.load' and kwargs: '{}'.
+2022-10-03 10:50:51,730 [INFO ]  Rasa server is up and running.
+2022-10-03 10:50:51,738 [INFO ]  Enabling coroutine debugging. Loop id 121617840.
+2022-10-05 11:10:26,621 [DEBUG]  Available web server routes: 
+/conversations/<conversation_id:path>/messages     POST                           add_message
+/conversations/<conversation_id:path>/tracker/events POST                           append_events
+/webhooks/rasa                                     GET                            custom_webhook_RasaChatInput.health
+/webhooks/rasa/webhook                             POST                           custom_webhook_RasaChatInput.receive
+/webhooks/rest                                     GET                            custom_webhook_RestInput.health
+/webhooks/rest/webhook                             POST                           custom_webhook_RestInput.receive
+/model/test/intents                                POST                           evaluate_intents
+/model/test/stories                                POST                           evaluate_stories
+/conversations/<conversation_id:path>/execute      POST                           execute_action
+/domain                                            GET                            get_domain
+/socket.io                                         OPTIONS                        handle_request
+/                                                  GET                            hello
+/model                                             PUT                            load_model
+/model/parse                                       POST                           parse
+/conversations/<conversation_id:path>/predict      POST                           predict
+/conversations/<conversation_id:path>/tracker/events PUT                            replace_events
+/conversations/<conversation_id:path>/story        GET                            retrieve_story
+/conversations/<conversation_id:path>/tracker      GET                            retrieve_tracker
+/webhooks/socketio                                 GET                            socketio_webhook.health
+/status                                            GET                            status
+/webhooks/telegram                                 GET                            telegram_webhook.health
+/webhooks/telegram/webhook                         GET                            telegram_webhook.message
+/webhooks/telegram/set_webhook                     GET                            telegram_webhook.set_webhook
+/model/predict                                     POST                           tracker_predict
+/model/train                                       POST                           train
+/conversations/<conversation_id:path>/trigger_intent POST                           trigger_intent
+/model                                             DELETE                         unload_model
+/version                                           GET                            version
+2022-10-05 11:10:26,660 [INFO ]  Starting Rasa server on http://0.0.0.0:5005
+2022-10-05 11:10:26,663 [DEBUG]  Using the default number of Sanic workers (1).
+2022-10-05 11:10:29,027 [DEBUG]  Starting new HTTPS connection (1): api.segment.io:443
+2022-10-05 11:10:30,330 [DEBUG]  https://api.segment.io:443 "POST /v1/track HTTP/1.1" 200 21
+2022-10-05 11:10:30,791 [DEBUG]  Connected to InMemoryTrackerStore.
+2022-10-05 11:10:30,792 [DEBUG]  Connected to lock store 'InMemoryLockStore'.
+2022-10-05 11:10:30,794 [DEBUG]  Instantiated NLG to 'TemplatedNaturalLanguageGenerator'.
+2022-10-05 11:10:30,807 [INFO ]  Loading model /app/models/20221005-094424-greasy-string.tar.gz...
+2022-10-05 11:10:32,361 [DEBUG]  Extracted model to '/tmp/tmpea8pdo9d'.
+2022-10-05 11:10:32,394 [DEBUG]  Node 'nlu_message_converter' loading 'NLUMessageConverter.load' and kwargs: '{}'.
+2022-10-05 11:10:32,398 [DEBUG]  Node 'run_WhitespaceTokenizer0' loading 'WhitespaceTokenizer.load' and kwargs: '{}'.
+2022-10-05 11:10:32,412 [DEBUG]  Node 'run_RegexFeaturizer1' loading 'RegexFeaturizer.load' and kwargs: '{}'.
+2022-10-05 11:10:32,415 [DEBUG]  Resource 'train_RegexFeaturizer1' was requested for reading.
+2022-10-05 11:10:32,435 [DEBUG]  Node 'run_LexicalSyntacticFeaturizer2' loading 'LexicalSyntacticFeaturizer.load' and kwargs: '{}'.
+2022-10-05 11:10:32,438 [DEBUG]  Resource 'train_LexicalSyntacticFeaturizer2' was requested for reading.
+2022-10-05 11:10:32,446 [DEBUG]  Node 'run_CountVectorsFeaturizer3' loading 'CountVectorsFeaturizer.load' and kwargs: '{}'.
+2022-10-05 11:10:32,448 [DEBUG]  Resource 'train_CountVectorsFeaturizer3' was requested for reading.
+2022-10-05 11:10:32,452 [DEBUG]  Node 'run_CountVectorsFeaturizer4' loading 'CountVectorsFeaturizer.load' and kwargs: '{}'.
+2022-10-05 11:10:32,454 [DEBUG]  Resource 'train_CountVectorsFeaturizer4' was requested for reading.
+2022-10-05 11:10:32,460 [DEBUG]  Node 'run_DIETClassifier5' loading 'DIETClassifier.load' and kwargs: '{}'.
+2022-10-05 11:10:32,461 [DEBUG]  Resource 'train_DIETClassifier5' was requested for reading.
+2022-10-05 11:10:32,467 [DEBUG]  Loading the model from /tmp/tmp_9h4omn6/train_DIETClassifier5/DIETClassifier.tf_model with finetune_mode=False...
+2022-10-05 11:10:33,099 [DEBUG]  You specified 'DIET' to train entities, but no entities are present in the training data. Skipping training of entities.
+2022-10-05 11:10:33,237 [DEBUG]  Following metrics will be logged during training: 
+2022-10-05 11:10:33,238 [DEBUG]    t_loss (total loss)
+2022-10-05 11:10:33,240 [DEBUG]    i_acc (intent acc)
+2022-10-05 11:10:33,242 [DEBUG]    i_loss (intent loss)
+2022-10-05 11:12:10,143 [DEBUG]  Finished loading the model.
+2022-10-05 11:12:10,145 [DEBUG]  Node 'run_EntitySynonymMapper6' loading 'EntitySynonymMapper.load' and kwargs: '{}'.
+2022-10-05 11:12:10,147 [DEBUG]  Resource 'train_EntitySynonymMapper6' was requested for reading.
+2022-10-05 11:12:10,148 [DEBUG]  Failed to load ABCMeta from model storage. Resource 'train_EntitySynonymMapper6' doesn't exist.
+2022-10-05 11:12:10,150 [DEBUG]  Node 'run_ResponseSelector7' loading 'ResponseSelector.load' and kwargs: '{}'.
+2022-10-05 11:12:10,152 [DEBUG]  Resource 'train_ResponseSelector7' was requested for reading.
+2022-10-05 11:12:10,153 [DEBUG]  Failed to load ABCMeta from model storage. Resource 'train_ResponseSelector7' doesn't exist.
+2022-10-05 11:12:10,155 [DEBUG]  Resource 'train_ResponseSelector7' was requested for reading.
+2022-10-05 11:12:10,156 [DEBUG]  Failed to load ResponseSelector from model storage. Resource 'train_ResponseSelector7' doesn't exist.
+2022-10-05 11:12:10,158 [DEBUG]  Node 'run_FallbackClassifier8' loading 'FallbackClassifier.load' and kwargs: '{}'.
+2022-10-05 11:12:10,160 [DEBUG]  Node 'run_RegexMessageHandler' loading 'RegexMessageHandler.load' and kwargs: '{}'.
+2022-10-05 11:12:10,162 [DEBUG]  Node 'domain_provider' loading 'DomainProvider.load' and kwargs: '{}'.
+2022-10-05 11:12:10,164 [DEBUG]  Resource 'domain_provider' was requested for reading.
+2022-10-05 11:12:10,880 [DEBUG]  Node 'run_MemoizationPolicy0' loading 'MemoizationPolicy.load' and kwargs: '{}'.
+2022-10-05 11:12:10,881 [DEBUG]  Resource 'train_MemoizationPolicy0' was requested for reading.
+2022-10-05 11:12:10,884 [DEBUG]  Node 'run_RulePolicy1' loading 'RulePolicy.load' and kwargs: '{}'.
+2022-10-05 11:12:10,886 [DEBUG]  Resource 'train_RulePolicy1' was requested for reading.
+2022-10-05 11:12:10,890 [DEBUG]  Node 'run_UnexpecTEDIntentPolicy2' loading 'UnexpecTEDIntentPolicy.load' and kwargs: '{}'.
+2022-10-05 11:12:10,892 [DEBUG]  Resource 'train_UnexpecTEDIntentPolicy2' was requested for reading.
+2022-10-05 11:12:10,899 [DEBUG]  Loading the model from /tmp/tmp_9h4omn6/train_UnexpecTEDIntentPolicy2/unexpected_intent_policy.tf_model with finetune_mode=False...
+2022-10-05 11:13:45,091 [DEBUG]  Finished loading the model.
+2022-10-05 11:13:45,094 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
+2022-10-05 11:13:45,097 [DEBUG]  Node 'run_TEDPolicy3' loading 'TEDPolicy.load' and kwargs: '{}'.
+2022-10-05 11:13:45,099 [DEBUG]  Resource 'train_TEDPolicy3' was requested for reading.
+2022-10-05 11:13:45,116 [DEBUG]  Loading the model from /tmp/tmp_9h4omn6/train_TEDPolicy3/ted_policy.tf_model with finetune_mode=False...
+2022-10-05 11:15:47,790 [DEBUG]  Finished loading the model.
+2022-10-05 11:15:47,793 [DEBUG]  Node 'rule_only_data_provider' loading 'RuleOnlyDataProvider.load' and kwargs: '{}'.
+2022-10-05 11:15:47,794 [DEBUG]  Resource 'train_RulePolicy1' was requested for reading.
+2022-10-05 11:15:47,799 [DEBUG]  Node 'select_prediction' loading 'DefaultPolicyPredictionEnsemble.load' and kwargs: '{}'.
+2022-10-05 11:15:47,830 [INFO ]  Rasa server is up and running.
+2022-10-05 11:15:47,840 [INFO ]  Enabling coroutine debugging. Loop id 102652448.

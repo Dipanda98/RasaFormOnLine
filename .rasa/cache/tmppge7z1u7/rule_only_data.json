@@ -1,0 +1,10 @@
+{
+  "rule_only_slots": [],
+  "rule_only_loops": [
+    "demande_secteur_form",
+    "demande_nombre_scenario_form",
+    "demande_formulaire_form",
+    "demande_email_form",
+    "demande_solution_payement_form"
+  ]
+}
