@@ -187,27 +187,22 @@ responses:
         value: en
     text: "Hi! I'll walk you through the process of quoting your chatbot."
 
+  utter_demande_support:
+  - condition:
+      - type: slot
+        name: language
+        value: en
+    text: "On which medium will your chatbot be deployed? Please choose the numbers corresponding to your choices by separating them with commas. Example: 1,2,4"
+  - text: "Sur quel support sera déployé votre chatbot ? Veuillez choisir les chiffres correspondant à vos choix en les séparant par des virgules. Exemple: 1,2,4"
+  
   utter_ask_support:
   - condition:
       - type: slot
         name: language
         value: en
-    text: "On which medium will your chatbot be deployed?\n\n
-  1) Whatsapp\n
-  2) Telegram\n
-  3) Messenger\n
-  4) Instagram\n
-  5) Mobile app\n
-  6) Web site\n
-  7) Other..."
-  - text: "Sur quel support sera déployé votre chatbot ?\n\n
-  1) Whatsapp\n
-  2) Telegram\n
-  3) Messenger\n
-  4) Instagram\n
-  5) Application mobile\n
-  6) Site web\n
-  7) Autres..."
+    text: "1: Whatsapp\n2: Telegram\n3: Messenger\n4: Instagram\n5: Mobile app\n6: Web site\n7: Other..."
+  - text: "1: Whatsapp\n2: Telegram\n3: Messenger\n4: Instagram\n5: Application mobile\n6: Site web\n7: Autres..."
+    
 
   utter_ask_scenario:
   - condition:
@@ -247,14 +242,12 @@ responses:
         name: language
         value: en
     text: "Should your chatbot integrate a payment solution?"
-    button_type: vertical
     buttons:
         - title: "Yes"
           payload: '/choix{{"solution_payement":"oui"}}'
         - title: "No"
           payload: '/choix{{"solution_payement":"non"}}'
   - text: "Votre chatbot doit-il intégrer une solution de payement ?"
-    button_type: vertical
     buttons:
         - title: "Oui"
           payload: '/choix{{"solution_payement":"oui"}}'
@@ -267,14 +260,12 @@ responses:
         name: language
         value: en
     text: "Would you like to integrate forms in your chatbot?"
-    button_type: vertical
     buttons:
         - title: "Yes"
           payload: '/choix{{"formulaire":"oui"}}'
         - title: "No"
           payload: '/choix{{"formulaire":"non"}}'
   - text: "Souhaitez-vous intégrer des formulaires dans votre chatbot ?"
-    button_type: vertical
     buttons:
         - title: "Oui"
           payload: '/choix{{"formulaire":"oui"}}'
@@ -405,12 +396,11 @@ responses:
     text: "Do you want a management interface for your chatbot?"
     button_type: vertical
     buttons:
-        - title: "Less than 50"
+        - title: "Yes"
           payload: '/plateforme_gestion{{"plateforme_gestion":"oui"}}'
-        - title: "Between 50 and 400"
+        - title: "No"
           payload: '/plateforme_gestion{{"plateforme_gestion":"non"}}'
   - text: "Voulez-vous une interface de gestion de votre chatbot ?"
-    button_type: vertical
     buttons:
         - title: "Oui"
           payload: '/plateforme_gestion{{"plateforme_gestion":"oui"}}'
@@ -423,14 +413,12 @@ responses:
         name: language
         value: en
     text: "Would you like to request another quote?"
-    button_type: vertical
     buttons:
         - title: "Yes"
           payload: /affirmation
         - title: "No"
           payload: /negation
   - text: "Voulez vous demander un autre devis ?"
-    button_type: vertical
     buttons:
         - title: "Oui"
           payload: /affirmation

@@ -312,7 +312,8 @@ class ValidateDemandeSupportDebutForm(FormValidationAction):
             if (present == True):
                 return {"support": support_list}
             else:
-               return {"support": None} 
+                dispatcher.utter_message(text="Erreur de choix !! Veuillez n'entrer que des chiffres correspondant aux supports se trouvant dans la liste en les séparant par des virgules.\nExemple: 1,2,3")
+                return {"support": None} 
                 
         except(RuntimeError, TypeError, NameError,OSError,ValueError,BaseException):
             if (language == "en"):

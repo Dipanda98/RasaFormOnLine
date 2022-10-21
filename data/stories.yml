@@ -11,6 +11,7 @@ stories:
   steps: 
   - action: utter_demande_langue
   - intent: choix_langue
+  - action: utter_demande_support
   - action: demande_support_form
   - active_loop: demande_support_form
 

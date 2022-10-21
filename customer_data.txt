@@ -1,0 +1,18 @@
+Données Client: 
+Raison: Demande de devis
+Email: gobinaa98@gmail.com
+Téléphone: 694650996
+Date de prise de contact: 21-October-2022 00:53:47
+Prix minimum : 834000
+Prix maximum: 3768000
+
+
+Données Client: 
+Raison: Demande de devis
+Email: gobinaa98@gmail.com
+Téléphone: 694650996
+Date de prise de contact: 21-October-2022 11:10:55
+Prix minimum : 543000
+Prix maximum: 2286000
+
+
