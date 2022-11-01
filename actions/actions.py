@@ -12,7 +12,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
-from rasa_sdk.events import SlotSet, EventType, AllSlotsReset
+from rasa_sdk.events import SlotSet, EventType, AllSlotsReset, ConversationPaused, ConversationResumed
 import re
 import smtplib, ssl
 from email.mime.multipart import MIMEMultipart
@@ -244,6 +244,40 @@ You can contact us to discuss the realization of your chatbot via this number: X
 Vous pouvez nous contacter discuter de la réalisation de votre chatbot via ce numéro: XXXXX, ou par mail à l'adresse: test@test.com\nVous pouvez aussi directement nous écrire en visitant notre page  {}".format(url_contact_page))
 
             return []
+
+
+class ActionTalkToHuman(Action):
+    """
+	human in the loop action
+	"""
+
+    def name(self) -> Text:
+        return "action_talk_to_human"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        response = "Reaching out to a human agent [{}]...".format(tracker.sender_id)
+        dispatcher.utter_message(response)
+
+        """
+		seems like rasa will stop listening once conversation
+		is paused, which means no actions are attempted, therefore
+		preventing triggering ConversationResumed() in a straightforward way.
+		"""
+        tracker.update(ConversationPaused())
+        message = ""
+        while message != "/unpause":
+            url = "http://127.0.0.1:5000/handoff/{}".format(tracker.sender_id)
+            req = requests.get(url)
+            resp = json.loads(req.text)
+            if "error" in resp:
+                raise Exception("Error fetching message: " + repr(resp["error"]))
+            message = resp["message"]
+            if message != "/unpause":
+                dispatcher.utter_message("Human agent: {}".format(message))
+
+        tracker.update(ConversationResumed())
 
 
 class ValidateDemandeEmailDebutForm(FormValidationAction):

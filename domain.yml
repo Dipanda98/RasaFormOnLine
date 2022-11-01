@@ -19,6 +19,7 @@ actions:
 - action_reset_slot
 - action_send_email
 - action_merci
+- action_talk_to_human
 - validate_demande_support_form
 - validate_demande_email_form
 #- action_choix_langue #Stockage de la langue
